@@ -20,7 +20,11 @@ import UIKit
     //MARK: Properties
     private var ratingButtons = [UIButton]()
     
-    var rating = 0
+    var rating = 0 {
+        didSet {
+            updateButtonSelectionStates()
+        }
+    }
     
  
     
@@ -68,7 +72,10 @@ import UIKit
     //MARK: Private Methods
     
     private func updateButtonSelectionStates() {
-        
+        for (index, button) in ratingButtons.enumerated() {
+            // If the index of a button is less than the rating, that button should be selected.
+            button.isSelected = index < rating
+        }
     }
     
     
@@ -111,7 +118,7 @@ import UIKit
             ratingButtons.append(button)
         }
         
-        
+        updateButtonSelectionStates()
     }
     
     
